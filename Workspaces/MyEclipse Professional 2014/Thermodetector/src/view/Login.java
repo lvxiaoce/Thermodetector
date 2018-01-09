@@ -20,7 +20,11 @@ import utils.StringUtil;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * 登录页面
+ * @author 
+ *
+ */
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -31,6 +35,7 @@ public class Login extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		//美化界面
 		try
 	    {
 	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
@@ -42,7 +47,15 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					System.out.println("ヾ(◍°∇°◍)ﾉﾞ    温度测量系统启动成功      ヾ(◍°∇°◍)ﾉﾞ");
+					
+					//初始化frame对象
 					Login frame = new Login();
+					
+					//设置窗口居中
+					frame.setLocationRelativeTo(null);
+					
+					//frame设为可见
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,6 +69,12 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setTitle("登陆");
+		
+		//DO_NOTHING_ON_CLOSE  不执行任何操作。
+		//HIDE_ON_CLOSE  只隐藏界面。
+		//DISPOSE_ON_CLOSE  隐藏并释放窗体
+		//EXIT_ON_CLOSE,直接关闭应用程序
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 265);
 		contentPane = new JPanel();
@@ -109,10 +128,22 @@ public class Login extends JFrame {
 					JOptionPane.showMessageDialog(null, "用户名或密码错误");
 				}else{
 					JOptionPane.showMessageDialog(null, "登录成功");
+					
+					//关闭登录窗口
+					close();
+					
+					//初始化主页面
+					Main mainFrame = new Main();
+					
+					//设置窗口居中
+					mainFrame.setLocationRelativeTo(null);
+					
+					//设置窗口为可见
+					mainFrame.setVisible(true);
 				}
 			}
 		});
-		loginButton.setBounds(93, 145, 93, 23);
+		loginButton.setBounds(93, 145, 71, 23);
 		contentPane.add(loginButton);
 		
 		JButton resetButton = new JButton("重置");
@@ -123,13 +154,29 @@ public class Login extends JFrame {
 				clearText();
 			}
 		});
-		resetButton.setBounds(216, 145, 93, 23);
+		resetButton.setBounds(245, 145, 64, 23);
 		contentPane.add(resetButton);
 		
-		JLabel lbladminadmin = new JLabel("提示：账户admin密码admin");
-		lbladminadmin.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-		lbladminadmin.setBounds(93, 178, 216, 39);
-		contentPane.add(lbladminadmin);
+		JLabel msg = new JLabel("提示：账号admin密码admin");
+		msg.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		msg.setBounds(93, 178, 216, 39);
+		contentPane.add(msg);
+		
+		JButton registerButton = new JButton("注册");
+		registerButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//初始化主页面
+				Register registerFrame = new Register();
+				
+				//设置窗口居中
+				registerFrame.setLocationRelativeTo(null);
+				
+				//设置窗口为可见
+				registerFrame.setVisible(true);
+			}
+		});
+		registerButton.setBounds(169, 145, 71, 23);
+		contentPane.add(registerButton);
 	}
 	
 	//清空账号框, 密码框的输入
@@ -137,4 +184,9 @@ public class Login extends JFrame {
 		usernameText.setText("");
 		passwordText.setText("");
     }
+	
+	//窗口关闭事件
+	private void close(){
+		this.dispose();
+	}
 }
