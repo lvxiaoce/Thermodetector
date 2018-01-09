@@ -86,8 +86,12 @@ public class Login extends JFrame {
 		JButton loginButton = new JButton("登陆");
 		loginButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				
+				//取输入的文本值
 				String username = usernameText.getText();
 				String password = passwordText.getText();
+				
+				//判断用户名和密码是否为空
 				if (StringUtil.isEmpty(username)) {
 					JOptionPane.showMessageDialog(null, "用户名不能为空");
 					return;
@@ -95,8 +99,12 @@ public class Login extends JFrame {
 				if (StringUtil.isEmpty(password)) {
 					JOptionPane.showMessageDialog(null, "密码不能为空");
 				}
+				//建立User对象
 				UserBean user = new UserBean(username, password);
+				
+				//调用数据库方法判断User是否存在
 				boolean flag = UserDao.login(user);
+				
 				if(!flag){
 					JOptionPane.showMessageDialog(null, "用户名或密码错误");
 				}else{
@@ -110,6 +118,8 @@ public class Login extends JFrame {
 		JButton resetButton = new JButton("重置");
 		resetButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				
+				//调用清空文本框方法
 				clearText();
 			}
 		});
@@ -122,7 +132,8 @@ public class Login extends JFrame {
 		contentPane.add(lbladminadmin);
 	}
 	
-	private void clearText() {//清空文本框, 密码框的输入
+	//清空账号框, 密码框的输入
+	private void clearText() {
 		usernameText.setText("");
 		passwordText.setText("");
     }
