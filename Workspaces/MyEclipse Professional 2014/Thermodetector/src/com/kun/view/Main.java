@@ -34,7 +34,7 @@ import java.awt.event.ActionEvent;
 public class Main extends JFrame {
 
 	private JPanel contentPane;
-	private JDesktopPane desktopPane;
+	private JPanel panel; 
 	/**
 	 * Create the frame.
 	 */
@@ -45,10 +45,16 @@ public class Main extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 101, 26);
 		contentPane.add(menuBar);
+		
+		panel = new JPanel();
+		panel.setBounds(0, 24, 531, 309);
+		panel.setLayout(new CardLayout());
+		contentPane.add(panel);
 		
 		JMenu mnNewMenu = new JMenu("系统管理");
 		mnNewMenu.setIcon(new ImageIcon(Main.class.getResource("/res/base.png")));
@@ -62,7 +68,7 @@ public class Main extends JFrame {
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThermodetectorList tListPanel = new ThermodetectorList();
-				desktopPane.add(tListPanel);
+				panel.add(tListPanel);
 			}
 		});
 		mntmNewMenuItem.setIcon(new ImageIcon(Main.class.getResource("/res/about.png")));
@@ -75,11 +81,5 @@ public class Main extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("退出");
 		mntmNewMenuItem_2.setIcon(new ImageIcon(Main.class.getResource("/res/exit.png")));
 		mnNewMenu.add(mntmNewMenuItem_2);
-		
-		setContentPane(contentPane);
-		
-		desktopPane = new JDesktopPane();
-		desktopPane.setBounds(10, 36, 476, 268);
-		contentPane.add(desktopPane);
 	}
 }
