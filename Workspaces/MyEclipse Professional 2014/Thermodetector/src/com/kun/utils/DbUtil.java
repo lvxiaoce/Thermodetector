@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DbUtil {
 	
-	private static String dbUrl="jdbc:mysql://localhost:3306/thermodetector";
+	private static String dbUrl="jdbc:mysql://localhost:3306/test";
 	private static String dbUsername="root";
 	private static String dbPassword="root";
 	private static String jdbcName="com.mysql.jdbc.Driver";

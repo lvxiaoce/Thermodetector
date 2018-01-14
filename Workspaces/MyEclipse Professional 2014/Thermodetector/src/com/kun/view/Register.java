@@ -1,7 +1,5 @@
 package com.kun.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,14 +17,17 @@ import javax.swing.JButton;
 
 
 
+
+
+import com.kun.action.UserAction;
+import com.kun.actionImpl.UserActionImpl;
 import com.kun.bean.UserBean;
 import com.kun.dao.UserDao;
 import com.kun.utils.StringUtil;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -40,6 +41,7 @@ public class Register extends JFrame {
 	private JTextField username;
 	private JTextField password;
 	private JTextField surePassword;
+	private UserAction uAction = new UserActionImpl();
 
 	/**
 	 * Create the frame.
@@ -111,8 +113,9 @@ public class Register extends JFrame {
 				}
 				
 				UserBean user = new UserBean(usernameText,passwordText);
+				
 				//判断是否注册成功
-				boolean flag = UserDao.register(user);
+				boolean flag = uAction.register(user);
 				
 				if(!flag){
 					JOptionPane.showMessageDialog(null, "注册失败");
