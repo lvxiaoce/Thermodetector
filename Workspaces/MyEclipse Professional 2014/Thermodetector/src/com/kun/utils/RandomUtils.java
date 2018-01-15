@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
  *
  */
 public class RandomUtils {
-	public static String testRandomNumber(double thermodete){
+	public String testRandomNumber(double thermodete){
 		String sum = "";
 		for (int i = 0; i <=13; i++) {  
 	        double s = (0+Math.random()*(20))*(Math.random()>0.5?1:-1);
