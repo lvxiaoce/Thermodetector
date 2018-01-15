@@ -85,6 +85,15 @@ public class Main extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("开始测量");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BeginTestList bListPanel = new BeginTestList();
+				bListPanel.setSize(panel.getSize());//获得中间容器的大小
+				panel.removeAll();//清空内容界面内容
+				panel.add(bListPanel);
+				panel.repaint();//添加中间容器的刷新方法（重要！）
+			}
+		});
 		mntmNewMenuItem_3.setIcon(new ImageIcon(Main.class.getResource("/res/edit.png")));
 		mnNewMenu_1.add(mntmNewMenuItem_3);
 		
