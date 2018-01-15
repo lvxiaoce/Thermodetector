@@ -21,7 +21,7 @@ public class UserDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean login(UserBean UserBean){
+	public boolean login(UserBean UserBean){
 		Connection conn = null;
 		boolean flag = false;
 		try {
@@ -52,7 +52,7 @@ public class UserDao {
 	 * @param UserBean
 	 * @return
 	 */
-	public static boolean register(UserBean UserBean){
+	public boolean register(UserBean UserBean){
 		Connection conn = null;
 		boolean flag = false;
 		try {
