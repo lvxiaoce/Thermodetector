@@ -3,6 +3,7 @@ package com.kun.view;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JTextField;
 
 public class ThermodetectorList extends JPanel {
@@ -31,12 +33,13 @@ public class ThermodetectorList extends JPanel {
 	private JComboBox comboBox = null;
 	private JButton btnNewButton = null;
 	private JComboBox comboBox_1 = null;
-	private TherInfAction tAction = new TherInfActionImpl();
-	private TimeAction tiAction = new TimeActionImpl();
-	private HeightAction hiAction = new HeightActionImpl();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private DefaultTableModel dtm;
+	private TherInfAction tAction = new TherInfActionImpl();
+	private TimeAction tiAction = new TimeActionImpl();
+	private HeightAction hiAction = new HeightActionImpl();
 	/**
 	 * Create the panel.
 	 */
@@ -47,7 +50,7 @@ public class ThermodetectorList extends JPanel {
 		scrollPane.setBounds(10, 77, 893, 275);
 		add(scrollPane);
 		
-		DefaultTableModel dtm = new DefaultTableModel();
+		dtm = new DefaultTableModel();
 		dtm.addColumn("采集时间");
 		dtm.addColumn("高度");
 		dtm.addColumn("南3");
@@ -101,7 +104,63 @@ public class ThermodetectorList extends JPanel {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				String item1 = (String) comboBox_1.getSelectedItem();
+				String item2 = (String) comboBox.getSelectedItem();
+				if(("测量时间").equals(item1)){
+					dtm.setRowCount(0);
+					
+					List<TherInfBean> list = tAction.serchTimeTherListAll(item2);
+					
+					for(TherInfBean tBean:list){
+						Vector<String> v = new Vector<String>();
+						v.add(tBean.getTime());
+						v.add(tBean.getHeight());
+						v.add(tBean.getSouth3());
+						v.add(tBean.getSouth2());
+						v.add(tBean.getSouth1());
+						v.add(tBean.getCore());
+						v.add(tBean.getNorth1());
+						v.add(tBean.getNorth2());
+						v.add(tBean.getNorth3());
+						v.add(tBean.getEast3());
+						v.add(tBean.getEast2());
+						v.add(tBean.getEast1());
+						v.add(tBean.getWest1());
+						v.add(tBean.getWest2());
+						v.add(tBean.getWest3());
+						dtm.addRow(v);
+					}
+					table = new JTable(dtm);
+				}
+				if(("测量高度").equals(item1)){
+					dtm.setRowCount(0);
+					
+					List<TherInfBean> list = tAction.serchHeightTherListAll(item2);
+					
+					for(TherInfBean tBean:list){
+						Vector<String> v = new Vector<String>();
+						v.add(tBean.getTime());
+						v.add(tBean.getHeight());
+						v.add(tBean.getSouth3());
+						v.add(tBean.getSouth2());
+						v.add(tBean.getSouth1());
+						v.add(tBean.getCore());
+						v.add(tBean.getNorth1());
+						v.add(tBean.getNorth2());
+						v.add(tBean.getNorth3());
+						v.add(tBean.getEast3());
+						v.add(tBean.getEast2());
+						v.add(tBean.getEast1());
+						v.add(tBean.getWest1());
+						v.add(tBean.getWest2());
+						v.add(tBean.getWest3());
+						dtm.addRow(v);
+					}
+					table = new JTable(dtm);
+				}
+				if(("请选择一项").equals(item1)){
+					JOptionPane.showMessageDialog(null,"请选择时间或者高度进行查询！");
+				}
 			}
 		});
 		btnNewButton.setBounds(310, 30, 61, 23);

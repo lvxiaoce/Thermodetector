@@ -16,4 +16,8 @@ public interface TherInfAction {
 	public List<TherInfBean> selectTherListAll();
 	
 	public boolean addTherInf(TherInfBean tBean);
+	
+	public List<TherInfBean> serchTimeTherListAll(String time);
+	
+	public List<TherInfBean> serchHeightTherListAll(String height);
 }

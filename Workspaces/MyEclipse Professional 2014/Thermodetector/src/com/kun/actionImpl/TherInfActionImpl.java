@@ -19,4 +19,14 @@ public class TherInfActionImpl implements TherInfAction {
 		return tDao.addTherInf(tBean);
 	}
 
+	public List<TherInfBean> serchTimeTherListAll(String time) {
+		// TODO Auto-generated method stub
+		return tDao.serchTimeTherListAll(time);
+	}
+
+	public List<TherInfBean> serchHeightTherListAll(String height) {
+		// TODO Auto-generated method stub
+		return tDao.serchHeightTherListAll(height);
+	}
+
 }
