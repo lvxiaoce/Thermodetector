@@ -262,7 +262,7 @@ public class BeginTestList extends JPanel {
 		
 		JLabel lblNewLabel_2 = new JLabel("请输入正整数类型参数");
 		lblNewLabel_2.setForeground(Color.RED);
-		lblNewLabel_2.setBounds(20, 52, 127, 15);
+		lblNewLabel_2.setBounds(51, 52, 127, 15);
 		add(lblNewLabel_2);
 		
 		JLabel label_5 = new JLabel("按下停止钮后可导入数据至数据库");
