@@ -70,11 +70,8 @@ public class Main extends JFrame {
 		mnNewMenu_1.setIcon(new ImageIcon(Main.class.getResource("/res/thermometer.png")));
 		mnNewMenu.add(mnNewMenu_1);
 		
-<<<<<<< HEAD
-		JMenuItem mntmNewMenuItem = new JMenuItem("数据页面");
-=======
 		JMenuItem mntmNewMenuItem = new JMenuItem("所有数据");
->>>>>>> remotes/origin/master
+		
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThermodetectorList tListPanel = new ThermodetectorList();
@@ -87,19 +84,9 @@ public class Main extends JFrame {
 		mntmNewMenuItem.setIcon(new ImageIcon(Main.class.getResource("/res/about.png")));
 		mnNewMenu_1.add(mntmNewMenuItem);
 		
-<<<<<<< HEAD
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("开始测试");
-		mntmNewMenuItem_3.setIcon(new ImageIcon(Main.class.getResource("/res/edit.png")));
-		mnNewMenu_1.add(mntmNewMenuItem_3);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("人员管理");
-		mntmNewMenuItem_1.setIcon(new ImageIcon(Main.class.getResource("/res/userName.png")));
-		mnNewMenu.add(mntmNewMenuItem_1);
-=======
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("开始测量");
 		mntmNewMenuItem_3.setIcon(new ImageIcon(Main.class.getResource("/res/edit.png")));
 		mnNewMenu_1.add(mntmNewMenuItem_3);
->>>>>>> remotes/origin/master
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("退出");
 		mntmNewMenuItem_2.setIcon(new ImageIcon(Main.class.getResource("/res/exit.png")));
