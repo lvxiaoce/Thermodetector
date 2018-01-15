@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
 
 public class ThermodetectorList extends JPanel {
 	private JTable table;
@@ -33,6 +34,9 @@ public class ThermodetectorList extends JPanel {
 	private TherInfAction tAction = new TherInfActionImpl();
 	private TimeAction tiAction = new TimeActionImpl();
 	private HeightAction hiAction = new HeightActionImpl();
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 	/**
 	 * Create the panel.
 	 */
@@ -40,7 +44,7 @@ public class ThermodetectorList extends JPanel {
 		this.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 77, 893, 412);
+		scrollPane.setBounds(10, 77, 893, 275);
 		add(scrollPane);
 		
 		DefaultTableModel dtm = new DefaultTableModel();
@@ -121,6 +125,9 @@ public class ThermodetectorList extends JPanel {
 						comboBox.addItem(heightStr);
 					}
 				}
+				if(("请选择一项").equals(item1)){
+					comboBox.removeAllItems();
+				}
 			}
 		});
 		comboBox_1.setBounds(70, 31, 97, 21);
@@ -128,5 +135,54 @@ public class ThermodetectorList extends JPanel {
 		comboBox_1.addItem("测量时间");
 		comboBox_1.addItem("测量高度");
 		add(comboBox_1);
+		
+		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setBounds(60, 365, 45, 21);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("/");
+		lblNewLabel_1.setBounds(112, 366, 22, 18);
+		add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
+		textField_1.setColumns(10);
+		textField_1.setBounds(122, 365, 45, 21);
+		add(textField_1);
+		
+		JLabel label = new JLabel("第");
+		label.setBounds(37, 363, 22, 24);
+		add(label);
+		
+		JLabel label_1 = new JLabel("页");
+		label_1.setBounds(177, 363, 22, 24);
+		add(label_1);
+		
+		JButton btnNewButton_1 = new JButton("上一页");
+		btnNewButton_1.setBounds(207, 364, 93, 23);
+		add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("下一页");
+		btnNewButton_2.setBounds(316, 364, 93, 23);
+		add(btnNewButton_2);
+		
+		JLabel label_2 = new JLabel("第");
+		label_2.setBounds(711, 362, 22, 24);
+		add(label_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(728, 365, 45, 21);
+		add(textField_2);
+		
+		JButton button = new JButton("跳转");
+		button.setBounds(811, 364, 61, 23);
+		add(button);
+		
+		JLabel label_3 = new JLabel("页");
+		label_3.setBounds(779, 363, 22, 24);
+		add(label_3);
 	}
 }

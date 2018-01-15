@@ -43,4 +43,39 @@ public class HeightDao {
 		}
 		return list;
 	}
+	
+	/**
+	 * 通过高度获得高度唯一id
+	 * 
+	 * @param conn
+	 * @param UserBean
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectHeightIdByHi(String height){
+		int heightId = 0;
+		Connection conn = null;
+		String sql = "select * from sys_height where height=?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = DbUtil.getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,height);
+			System.out.println(sql +height);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				heightId = rs.getInt("id");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DbUtil.closeConn(conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return heightId;
+	}
 }

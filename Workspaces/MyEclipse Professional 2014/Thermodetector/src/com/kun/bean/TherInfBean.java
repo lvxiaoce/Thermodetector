@@ -106,5 +106,14 @@ public class TherInfBean {
 	public void setWest3(String west3) {
 		this.west3 = west3;
 	}
+	@Override
+	public String toString() {
+		return "TherInfBean [time=" + time + ", height=" + height + ", south3="
+				+ south3 + ", south2=" + south2 + ", south1=" + south1
+				+ ", core=" + core + ", north1=" + north1 + ", north2="
+				+ north2 + ", north3=" + north3 + ", east3=" + east3
+				+ ", east2=" + east2 + ", east1=" + east1 + ", west1=" + west1
+				+ ", west2=" + west2 + ", west3=" + west3 + "]";
+	}
 	
 }

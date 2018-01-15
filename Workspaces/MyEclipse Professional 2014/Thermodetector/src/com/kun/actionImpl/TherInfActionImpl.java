@@ -14,4 +14,9 @@ public class TherInfActionImpl implements TherInfAction {
 		return tDao.selectTherListAll();
 	}
 
+	public boolean addTherInf(TherInfBean tBean) {
+		// TODO Auto-generated method stub
+		return tDao.addTherInf(tBean);
+	}
+
 }

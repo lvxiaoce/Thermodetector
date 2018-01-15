@@ -14,4 +14,6 @@ public interface TherInfAction {
 	 * @throws Exception
 	 */
 	public List<TherInfBean> selectTherListAll();
+	
+	public boolean addTherInf(TherInfBean tBean);
 }

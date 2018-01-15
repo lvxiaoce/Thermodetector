@@ -7,9 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kun.action.HeightAction;
+import com.kun.action.TimeAction;
+import com.kun.actionImpl.HeightActionImpl;
+import com.kun.actionImpl.TimeActionImpl;
 import com.kun.bean.TherInfBean;
+import com.kun.bean.UserBean;
 import com.kun.utils.DbUtil;
 public class TherInfDao {
+	
+	private HeightAction hAction = new HeightActionImpl();
+	private TimeAction tAction = new TimeActionImpl();
 	
 	/**
 	 * 获得sys_therinf的数据
@@ -59,5 +67,59 @@ public class TherInfDao {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * 添加温度数据
+	 * @param TherInfBean
+	 * @return
+	 */
+	public boolean addTherInf(TherInfBean tBean){
+		Connection conn = null;
+		boolean flag = false;
+		
+//		boolean tflag = tAction.addTime(tBean.getTime());
+//		
+//		if(!tflag){
+//			return flag;
+//		}
+		
+		int heightId = hAction.selectHeightIdByHi(tBean.getHeight());
+		
+		int timeId = tAction.selectTimeIdByTi(tBean.getTime());
+		
+		try {
+			conn = DbUtil.getConn();
+			String sql = "insert into sys_therinf values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, timeId);
+			ps.setInt(2, heightId);
+			ps.setString(3, tBean.getSouth3());
+			ps.setString(4, tBean.getSouth2());
+			ps.setString(5, tBean.getSouth1());
+			ps.setString(6, tBean.getCore());
+			ps.setString(7, tBean.getNorth1());
+			ps.setString(8, tBean.getNorth2());
+			ps.setString(9, tBean.getNorth3());
+			ps.setString(10, tBean.getEast3());
+			ps.setString(11, tBean.getEast2());
+			ps.setString(12, tBean.getEast1());
+			ps.setString(13, tBean.getWest1());
+			ps.setString(14, tBean.getWest2());
+			ps.setString(15, tBean.getWest3());
+			if (ps.executeUpdate()>=1) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				DbUtil.closeConn(conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return flag;
 	}
 }

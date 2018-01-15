@@ -14,4 +14,9 @@ public class HeightActionImpl implements HeightAction {
 		return hDao.selectHeightAll();
 	}
 
+	public int selectHeightIdByHi(String height) {
+		// TODO Auto-generated method stub
+		return hDao.selectHeightIdByHi(height);
+	}
+
 }

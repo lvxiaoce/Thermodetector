@@ -13,4 +13,14 @@ public class TimeActionImpl implements TimeAction {
 		return tDao.selectTimeAll();
 	}
 
+	public boolean addTime(String time) {
+		// TODO Auto-generated method stub
+		return tDao.addTime(time);
+	}
+
+	public int selectTimeIdByTi(String time) {
+		// TODO Auto-generated method stub
+		return tDao.selectTimeIdByTi(time);
+	}
+
 }
