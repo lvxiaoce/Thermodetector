@@ -91,6 +91,7 @@ public class ThermodetectorList extends JPanel {
 		
 		table = new JTable(dtm);
 		scrollPane.setViewportView(table);
+		table.setEnabled(false);
 		
 		JLabel lblNewLabel = new JLabel("查询：");
 		lblNewLabel.setBounds(26, 29, 45, 24);

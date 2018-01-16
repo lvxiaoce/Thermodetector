@@ -62,7 +62,6 @@ public class HeightDao {
 			conn = DbUtil.getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1,height);
-			System.out.println(sql +height);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				heightId = rs.getInt("id");

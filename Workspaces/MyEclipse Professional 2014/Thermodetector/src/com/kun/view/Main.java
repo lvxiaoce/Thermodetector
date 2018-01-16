@@ -97,6 +97,23 @@ public class Main extends JFrame {
 		mntmNewMenuItem_3.setIcon(new ImageIcon(Main.class.getResource("/res/edit.png")));
 		mnNewMenu_1.add(mntmNewMenuItem_3);
 		
+		JMenu mnNewMenu_2 = new JMenu("软件管理");
+		mnNewMenu_2.setIcon(new ImageIcon(Main.class.getResource("/res/modify.png")));
+		mnNewMenu.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("采集参数管理");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TestParamList tListPanel = new TestParamList();
+				tListPanel.setSize(panel.getSize());//获得中间容器的大小
+				panel.removeAll();//清空内容界面内容
+				panel.add(tListPanel);
+				panel.repaint();//添加中间容器的刷新方法（重要！）
+			}
+		});
+		mntmNewMenuItem_1.setIcon(new ImageIcon(Main.class.getResource("/res/add.png")));
+		mnNewMenu_2.add(mntmNewMenuItem_1);
+		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("退出");
 		mntmNewMenuItem_2.setIcon(new ImageIcon(Main.class.getResource("/res/exit.png")));
 		mnNewMenu.add(mntmNewMenuItem_2);

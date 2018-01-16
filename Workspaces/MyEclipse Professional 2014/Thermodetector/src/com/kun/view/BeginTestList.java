@@ -100,6 +100,7 @@ public class BeginTestList extends JPanel implements ActionListener {
 				addButton.setVisible(false);
 				addButton.setEnabled(false);
 				
+				OnceRandomList();
 				startTimer(Integer.parseInt(cTime));
 				
 			}
@@ -258,7 +259,7 @@ public class BeginTestList extends JPanel implements ActionListener {
 	
 	public void startTimer(int time) {  
         //设置Timer定时器，并启动  
-        timer = new Timer(time*1000,this); 
+        timer = new Timer(time*1000*60,this); 
         timer.start();  
     }
 	
@@ -268,6 +269,10 @@ public class BeginTestList extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		OnceRandomList();
+	}
+	
+	public void OnceRandomList(){
 		List<TherInfBean> list =  tAction.RandomTestList();
 		
 		for(TherInfBean tBean:list){
@@ -290,5 +295,5 @@ public class BeginTestList extends JPanel implements ActionListener {
 			dtm.addRow(v);
 			listAll.add(tBean);
 		}
-	}  
+	}
 }
