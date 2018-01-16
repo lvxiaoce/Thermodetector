@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,6 +20,8 @@ import com.kun.actionImpl.TimeActionImpl;
 import com.kun.bean.TherInfBean;
 import com.kun.utils.StringUtil;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ import java.util.List;
 import java.util.Vector;
 import java.awt.Color;
 
-public class BeginTestList extends JPanel {
+public class BeginTestList extends JPanel implements ActionListener {
 	private JTable table;
 	private JTextField collectionTime;
 	private DefaultTableModel dtm; 
@@ -41,6 +44,7 @@ public class BeginTestList extends JPanel {
 	private TestAction tAction = new TestActionImpl();
 	private TherInfAction thAction = new TherInfActionImpl();
 	private TimeAction tiAction = new TimeActionImpl();
+	private Timer timer;
 	/**
 	 * Create the panel.
 	 */
@@ -96,28 +100,8 @@ public class BeginTestList extends JPanel {
 				addButton.setVisible(false);
 				addButton.setEnabled(false);
 				
-				List<TherInfBean> list =  tAction.RandomTestList();
+				startTimer(Integer.parseInt(cTime));
 				
-				for(TherInfBean tBean:list){
-					Vector<String> v = new Vector<String>();
-					v.add(tBean.getTime());
-					v.add(tBean.getHeight());
-					v.add(tBean.getSouth3());
-					v.add(tBean.getSouth2());
-					v.add(tBean.getSouth1());
-					v.add(tBean.getCore());
-					v.add(tBean.getNorth1());
-					v.add(tBean.getNorth2());
-					v.add(tBean.getNorth3());
-					v.add(tBean.getEast3());
-					v.add(tBean.getEast2());
-					v.add(tBean.getEast1());
-					v.add(tBean.getWest1());
-					v.add(tBean.getWest2());
-					v.add(tBean.getWest3());
-					dtm.addRow(v);
-					listAll.add(tBean);
-				}
 			}
 		});
 		beginButton.setBounds(216, 30, 87, 23);
@@ -150,6 +134,7 @@ public class BeginTestList extends JPanel {
 				addButton.setVisible(true);
 				addButton.setEnabled(true);
 				
+				stopTimer();
 			}
 		});
 		stopButton.setBounds(311, 30, 74, 23);
@@ -270,4 +255,40 @@ public class BeginTestList extends JPanel {
 		label_5.setBounds(392, 34, 189, 15);
 		add(label_5);
 	}
+	
+	public void startTimer(int time) {  
+        //设置Timer定时器，并启动  
+        timer = new Timer(time*1000,this); 
+        timer.start();  
+    }
+	
+	public void stopTimer(){
+		timer.stop();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		List<TherInfBean> list =  tAction.RandomTestList();
+		
+		for(TherInfBean tBean:list){
+			Vector<String> v = new Vector<String>();
+			v.add(tBean.getTime());
+			v.add(tBean.getHeight());
+			v.add(tBean.getSouth3());
+			v.add(tBean.getSouth2());
+			v.add(tBean.getSouth1());
+			v.add(tBean.getCore());
+			v.add(tBean.getNorth1());
+			v.add(tBean.getNorth2());
+			v.add(tBean.getNorth3());
+			v.add(tBean.getEast3());
+			v.add(tBean.getEast2());
+			v.add(tBean.getEast1());
+			v.add(tBean.getWest1());
+			v.add(tBean.getWest2());
+			v.add(tBean.getWest3());
+			dtm.addRow(v);
+			listAll.add(tBean);
+		}
+	}  
 }
