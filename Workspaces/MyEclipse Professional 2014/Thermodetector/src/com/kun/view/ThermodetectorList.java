@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.kun.action.HeightAction;
 import com.kun.action.TherInfAction;
@@ -90,6 +91,7 @@ public class ThermodetectorList extends JPanel {
 		}
 		
 		table = new JTable(dtm);
+//		JTableHeader header = table.getTableHeader();
 		scrollPane.setViewportView(table);
 		table.setEnabled(false);
 		
