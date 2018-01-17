@@ -18,6 +18,7 @@ import com.kun.actionImpl.TestActionImpl;
 import com.kun.actionImpl.TherInfActionImpl;
 import com.kun.actionImpl.TimeActionImpl;
 import com.kun.bean.TherInfBean;
+import com.kun.utils.PageUtils;
 import com.kun.utils.StringUtil;
 
 import java.awt.event.ActionEvent;
@@ -33,18 +34,20 @@ public class BeginTestList extends JPanel implements ActionListener {
 	private JTable table;
 	private JTextField collectionTime;
 	private DefaultTableModel dtm; 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField nowNumberPagesFieldField;
+	private JTextField allNumberPagesField;
+	private JTextField pageField;
 	private JButton beginButton;
 	private JButton stopButton;
 	private JButton addButton;
 	private List<TherInfBean> listAll = new ArrayList<TherInfBean>();
-	private String[] timeStr;
 	private TestAction tAction = new TestActionImpl();
 	private TherInfAction thAction = new TherInfActionImpl();
 	private TimeAction tiAction = new TimeActionImpl();
 	private Timer timer;
+	private Integer totalPage;//总页数
+	private Integer nowPages = 1;//当前页数
+	private Integer eachData = 8;//每页显示的数据条数
 	/**
 	 * Create the panel.
 	 */
@@ -136,6 +139,38 @@ public class BeginTestList extends JPanel implements ActionListener {
 				addButton.setEnabled(true);
 				
 				stopTimer();
+				
+				//清空列表数据
+				dtm.setRowCount(0);
+				
+				//获得总页数
+				totalPage = PageUtils.getAllNumberPages(listAll.size(), eachData);
+				
+				//获得当前页数据
+				List<TherInfBean> getPageList = PageUtils.getEachPageList(listAll,nowPages,eachData,totalPage);
+				
+				nowNumberPagesFieldField.setText(nowPages+"");//设置当前页
+				allNumberPagesField.setText(totalPage+"");//设置总页数
+				
+				for(TherInfBean tBean:getPageList){
+					Vector<String> v = new Vector<String>();
+					v.add(tBean.getTime());
+					v.add(tBean.getHeight());
+					v.add(tBean.getSouth3());
+					v.add(tBean.getSouth2());
+					v.add(tBean.getSouth1());
+					v.add(tBean.getCore());
+					v.add(tBean.getNorth1());
+					v.add(tBean.getNorth2());
+					v.add(tBean.getNorth3());
+					v.add(tBean.getEast3());
+					v.add(tBean.getEast2());
+					v.add(tBean.getEast1());
+					v.add(tBean.getWest1());
+					v.add(tBean.getWest2());
+					v.add(tBean.getWest3());
+					dtm.addRow(v);
+				}
 			}
 		});
 		stopButton.setBounds(311, 30, 74, 23);
@@ -178,21 +213,21 @@ public class BeginTestList extends JPanel implements ActionListener {
 		addButton.setVisible(false);
 		addButton.setEnabled(false);
 		
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setColumns(10);
-		textField.setBounds(58, 365, 45, 21);
-		add(textField);
+		nowNumberPagesFieldField = new JTextField();
+		nowNumberPagesFieldField.setEnabled(false);
+		nowNumberPagesFieldField.setColumns(10);
+		nowNumberPagesFieldField.setBounds(58, 365, 45, 21);
+		add(nowNumberPagesFieldField);
 		
 		JLabel label = new JLabel("/");
 		label.setBounds(110, 366, 22, 18);
 		add(label);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(120, 365, 45, 21);
-		add(textField_1);
+		allNumberPagesField = new JTextField();
+		allNumberPagesField.setEnabled(false);
+		allNumberPagesField.setColumns(10);
+		allNumberPagesField.setBounds(120, 365, 45, 21);
+		add(allNumberPagesField);
 		
 		JLabel label_1 = new JLabel("第");
 		label_1.setBounds(35, 363, 22, 24);
@@ -203,10 +238,92 @@ public class BeginTestList extends JPanel implements ActionListener {
 		add(label_2);
 		
 		JButton button_1 = new JButton("上一页");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(nowPages == 1){
+					JOptionPane.showMessageDialog(null, "已经是第一页了!");
+					return;
+				}
+				//清空列表数据
+				dtm.setRowCount(0);
+				//当前页数加一
+				nowPages -= 1;
+				//设置当前页数
+				nowNumberPagesFieldField.setText(nowPages+"");
+				//获得当前页数据
+				List<TherInfBean> getPageList = PageUtils.getEachPageList(listAll,nowPages,eachData,totalPage);
+				
+				for(TherInfBean tBean:getPageList){
+					Vector<String> v = new Vector<String>();
+					v.add(tBean.getTime());
+					v.add(tBean.getHeight());
+					v.add(tBean.getSouth3());
+					v.add(tBean.getSouth2());
+					v.add(tBean.getSouth1());
+					v.add(tBean.getCore());
+					v.add(tBean.getNorth1());
+					v.add(tBean.getNorth2());
+					v.add(tBean.getNorth3());
+					v.add(tBean.getEast3());
+					v.add(tBean.getEast2());
+					v.add(tBean.getEast1());
+					v.add(tBean.getWest1());
+					v.add(tBean.getWest2());
+					v.add(tBean.getWest3());
+					dtm.addRow(v);
+				}
+				
+				table = new JTable(dtm);
+			}
+		});
 		button_1.setBounds(205, 364, 93, 23);
 		add(button_1);
 		
 		JButton button_2 = new JButton("下一页");
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(nowPages == totalPage){
+					JOptionPane.showMessageDialog(null, "已经是最后一页了!");
+					return;
+				}
+				if(listAll.isEmpty()){
+					JOptionPane.showMessageDialog(null, "没有数据!");
+					return;
+				}
+				//清空列表数据
+				dtm.setRowCount(0);
+				//当前页数加一
+				nowPages += 1;
+				//设置当前页数
+				nowNumberPagesFieldField.setText(nowPages+"");
+				//获得当前页数据
+				List<TherInfBean> getPageList = PageUtils.getEachPageList(listAll,nowPages,eachData,totalPage);
+				
+				for(TherInfBean tBean:getPageList){
+					Vector<String> v = new Vector<String>();
+					v.add(tBean.getTime());
+					v.add(tBean.getHeight());
+					v.add(tBean.getSouth3());
+					v.add(tBean.getSouth2());
+					v.add(tBean.getSouth1());
+					v.add(tBean.getCore());
+					v.add(tBean.getNorth1());
+					v.add(tBean.getNorth2());
+					v.add(tBean.getNorth3());
+					v.add(tBean.getEast3());
+					v.add(tBean.getEast2());
+					v.add(tBean.getEast1());
+					v.add(tBean.getWest1());
+					v.add(tBean.getWest2());
+					v.add(tBean.getWest3());
+					dtm.addRow(v);
+				}
+				
+				table = new JTable(dtm);
+			}
+		});
 		button_2.setBounds(314, 364, 93, 23);
 		add(button_2);
 		
@@ -214,12 +331,60 @@ public class BeginTestList extends JPanel implements ActionListener {
 		label_3.setBounds(709, 362, 22, 24);
 		add(label_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(726, 365, 45, 21);
-		add(textField_2);
+		pageField = new JTextField();
+		pageField.setColumns(10);
+		pageField.setBounds(726, 365, 45, 21);
+		add(pageField);
 		
 		JButton button_3 = new JButton("跳转");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String page = pageField.getText();
+				if(listAll.isEmpty()){
+					JOptionPane.showMessageDialog(null, "没有数据!");
+					return;
+				}
+				if(page.isEmpty()){
+					JOptionPane.showMessageDialog(null, "请输入想要跳转的页数!");
+					return;
+				}
+				if(!StringUtil.isMatches(page)||Integer.parseInt(page)<1||Integer.parseInt(page)>totalPage){
+					JOptionPane.showMessageDialog(null,"请输入正确的页数！页数必须为正整数且不能小于1和大于最大页数！");
+					return;
+				}
+				//清空列表数据
+				dtm.setRowCount(0);
+				//获得当前页数
+				nowPages = Integer.parseInt(page);
+				//设置当前页数
+				nowNumberPagesFieldField.setText(nowPages+"");
+				//获得当前页数据
+				List<TherInfBean> getPageList = PageUtils.getEachPageList(listAll,nowPages,eachData,totalPage);
+				
+				for(TherInfBean tBean:getPageList){
+					Vector<String> v = new Vector<String>();
+					v.add(tBean.getTime());
+					v.add(tBean.getHeight());
+					v.add(tBean.getSouth3());
+					v.add(tBean.getSouth2());
+					v.add(tBean.getSouth1());
+					v.add(tBean.getCore());
+					v.add(tBean.getNorth1());
+					v.add(tBean.getNorth2());
+					v.add(tBean.getNorth3());
+					v.add(tBean.getEast3());
+					v.add(tBean.getEast2());
+					v.add(tBean.getEast1());
+					v.add(tBean.getWest1());
+					v.add(tBean.getWest2());
+					v.add(tBean.getWest3());
+					dtm.addRow(v);
+				}
+				
+				table = new JTable(dtm);
+			}
+		});
 		button_3.setBounds(809, 364, 61, 23);
 		add(button_3);
 		
@@ -259,7 +424,7 @@ public class BeginTestList extends JPanel implements ActionListener {
 	
 	public void startTimer(int time) {  
         //设置Timer定时器，并启动  
-        timer = new Timer(time*1000*60,this); 
+        timer = new Timer(time*1000,this); 
         timer.start();  
     }
 	

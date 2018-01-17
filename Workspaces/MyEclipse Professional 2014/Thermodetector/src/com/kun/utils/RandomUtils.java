@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * 测试数据来源
- * @author funinhr
+ * @author 
  *
  */
 public class RandomUtils {
@@ -19,6 +19,7 @@ public class RandomUtils {
 	        	sum += "+00"+df.format(thermodete+s);
 	        }
 	    }
+		System.out.println("已生成随机数据："+sum);
 		return sum;
 	}
 }
